@@ -1,0 +1,49 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Jitterbit Order API",
+    "version": "1.0.0",
+    "description": "API de Pedidos com transformação de dados e transações ACID."
+  },
+  "servers": [{ "url": "http://localhost:3000" }],
+  "paths": {
+    "/order": {
+      "post": {
+        "summary": "Criar Pedido",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                   "numeroPedido": "v10089015vdb-01",
+                   "valorTotal": 10000,
+                   "dataCriacao": "2023-07-19T12:24:11.529Z",
+                   "items": [{ "idItem": "2434", "quantidadeItem": 1, "valorItem": 1000 }]
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/order/list": {
+        "get": {
+            "summary": "Listar todos os pedidos",
+            "responses": { "200": { "description": "Lista retornada" } }
+        }
+    },
+    "/order/{id}": {
+      "get": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Não encontrado" } }
+      },
+      "delete": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Deletado" } }
+      }
+    }
+  }
+}
